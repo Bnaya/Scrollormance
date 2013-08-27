@@ -1,0 +1,46 @@
+.custom-scroll-container {
+}
+
+.no-overflow-x .custom-scroll-container .track-x {
+    display: none;
+}
+
+.no-overflow-y .custom-scroll-container .track-y {
+    display: none;
+}
+
+.custom-scroll-container .track {
+    /*pointer-events: none;*/
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 7;
+}
+
+.custom-scroll-container .track-y {
+    text-align: center;
+    height: 100%;
+    width: 20px;
+}
+
+.custom-scroll-container .track-x {
+    height: 20px;
+    width: 100%;
+}
+
+.custom-scroll-container .drag {
+}
+
+.custom-scroll-container .track-y .drag {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    min-height: 5px;
+}
+
+.custom-scroll-container .track-x .drag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 5px;
+}

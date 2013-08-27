@@ -1,0 +1,13 @@
+.hiddenScrollbarViewport {
+    direction: ltr;
+    overflow: hidden;
+    position: relative;
+}
+
+.hiddenScrollbarViewport > .hiddenScrollbarScrollable {
+    height: 100%;
+    width: auto;
+    margin-right: -45px;
+    padding-right: 30px;
+    overflow: auto;
+}

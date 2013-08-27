@@ -1,0 +1,26 @@
+.basic-scroll-theme {
+
+}
+
+.basic-scroll-theme .track {
+    width: 10px;
+    background-color: black;
+    border-radius: 6px;
+    opacity: 0;
+    -webkit-transition: opacity 0.7s ease-out;
+    transition: opacity 0.7s ease-out;
+}
+
+.basic-scroll-theme .track:hover {
+    cursor: pointer;
+}
+
+.basic-scroll-theme:hover .track {
+    opacity: 1;
+}
+
+.basic-scroll-theme .drag {
+    background-color: yellow;
+    border-radius: 6px;
+    width: 10px;
+}
