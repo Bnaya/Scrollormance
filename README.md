@@ -1,28 +1,34 @@
-# Scrollormance: Custom scrollbar for performance
+## Scrollormance: Custom scrollbar for performance
 
-Check the demo: http://bnaya.github.io/Scrollormance/demo/
+The goal is to give the developer the ability to custom the scrollbar with css as any dom element, while maintaining the browser's builtin scroll mechanism
 
-Note that this is an initial but working version.
-Its not yet support vertical scrollbar, although most of the code is there
+Demo: http://bnaya.github.io/Scrollormance/demo/
 
-Its on AMD format, depends on Backbone (For its model), underscore, jquery and jquery mousewheel
+Its not yet supports horizontal scrollbar, although most of the code is there.
 
-It was tested on IE8+, chrome, FF, opera, safari.
+It can be used as global constructor or AMD module.
 
-All of the jquery plugins for custom scrollbars i came across were lame for many reasons,
-especially when the size of the content or the viewport needs to be changed.
+Depends on jquery and underscore,
+jquery-mousewheel is a soft dependency, you need it to be available if you want the mousewheel will work when the mouse hovering the scrollbar.
 
-Also the scrolling itself is made by negative CSS top/margin-top values,
-which is bad for performance.
+Tested on IE8+, chrome, FF, opera, safari.
 
-So what we will do is to keep the overflow:auto but hide the native scrollbars,
-Actually if you just want scrolling and you don't need scrollbar (the native is ugly) you can just use that CSS.
+Each one of the jquery plugins/helpers for custom scrollbars i came across had drawback.
+especially with dynamic content or the viewport/layout can be changed.
+
+The scrolling itself is made by negative CSS top/margin-top values,
+wich is not very performance(recalc css & layouts) and not hardware accelerated
+or using css transform which is hardware accelerated but not supported on older browsers and not very optimized for updating context/layout size.
+
+So what we will do here is to keep the overflow:auto but hide the native scrollbars,
+(Actually if you just want scrolling and you don't need visual scrollbar you can just use that CSS)
 
 The second part is the scrollbar itself, the JS class.
-Note that its not changing the existing DOM, its just adding the needed DOM for the scrollbar.
+Its not changing the existing DOM, just adding the needed DOM for the visual scrollbar itself.
 
-You need to create an instance of the class, suppling the wanted DOM element (Note that he must be ".hiddenScrollbarViewport" element)
-You can apply this also when the elements are off the DOM tree or when its display: none
+You need to create an instance of the class, giving the wanted DOM element. he must have the hiddenScrollbarViewport class
+
+You can apply the helper also when the elements are off the DOM tree or when its display: none. (aka not in the render tree)
 
 If you already know the initial values for
 
@@ -31,11 +37,10 @@ If you already know the initial values for
             contentHeight,
             contentWidth
 
-you also can supply them, if you don't just pass 0, but don't forget the call .update()/updateLazy()
+you also can supply them, if you don't, just call .update()/updateLazy() afer you've appended the element to dom/when is not display: none; (aka when you add it to the render tree)
 
 The update/updateLazy methods are to tell the class that one of the geometric values have changed and its need to recalculate the size and position of the scrollbar.
 
-updateLazy and performance(just update).
-
-On the performance, the JS code dose not query the DOM for any geometric values so you will need to provide them
-(After calculating them in JS code, and not querying the DOM for them ofc :P)
+The updateLazy method queries the dom for the required geometric information,
+while update method gives the developer the ability to supply them himself.
+That can save the forced reflow/layout when reading layout related dom properties
